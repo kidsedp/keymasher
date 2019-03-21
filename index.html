@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Keymasher</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
+        <script src="app.js"></script>
+
+        <style>
+            #game {
+                display: flex;
+            }
+            
+            #board-container, #stats-container {
+                margin: 1em;
+            }
+
+            table, tr, td, th {
+                border: 1px solid black;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+            th {
+                background: #c0c0c0;
+            }
+
+            .hidden {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="game">
+            <div id="board-container"></div>
+            <div id="stats-container"></div>
+        </div>
+
+        <div id="description">
+            <h2>How to play</h2>
+            <p>
+                Press any buttons you want. (I suggest the arrow keys, but feel free to try other keys, too!) Your goal is to move the black circle onto the yellow one. At first, the game will respond randomly to your key presses, but over time, it will learn what each key means.
+            </p>
+
+            <h2>What's going on?</h2>
+            <p>
+                This game is a demonstration of <b>reinforcement learning</b>. When you press a key, the game makes a guess about what you meant. If its guess brings the black circle closer to the yellow one, it rewards itself by making the move it guessed more likely when you press that key. If its guess moves it further away or keeps it where it is, it punishes itself by making that move less likely when you press the same key. You can see the probability table for each key it knows about by pressing the <b>Show stats</b> button.
+            </p>
+        </div>
+    </body>
+</html>
