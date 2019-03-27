@@ -26,38 +26,16 @@ function initDOM() {
 }
 
 function updateStats() {
-  statsNode.remove();
-  statsNode = brain.toHTML();
-  statsNode.parent('stats-container');
+  emptyNode(statsNode.elt);
+  statsNode.elt.appendChild(brain.toHTML());
 }
 
 function updateScore(newScore) {
   scoreNode.html(newScore);
 }
 
-function generateElement(data) {
-  fns = {table: createTable};
-
-  if (!fns.hasOwnProperty(data.tag)) {
-    throw new Error(`No generation method for ${data.tag}.`);
+function emptyNode(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
   }
-
-  return fns[data.tag](data.value);
-}
-
-function createTable(data) {
-  let table = createElement('table');
-  let keyRow = createElement('tr');
-  let valRow = createElement('tr');
-  keyRow.parent(table);
-  valRow.parent(table);
-
-  for (let [k, v] of Object.entries(data)) {
-    let keyCell = createElement('th', k);
-    let valCell = createElement('td', v);
-    keyCell.parent(keyRow);
-    valCell.parent(valRow);
-  }
-
-  return table;
 }

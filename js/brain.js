@@ -25,33 +25,23 @@ class Brain {
 		this.probs[code].punish(this.lastMove);
 	}
 
-  toObject() {
-    let obj = {tag: 'div', children: []};
-
-    for (let [key, probs] of Object.entries(this.probs)) {
-      obj.children.push({tag: 'div', children: [
-        {tag: 'label', value: `Key code: ${key}`},
-        probs.toObject()
-      ]});
-    }
-  }
-
   toHTML() {
-    let container = createDiv();
+    let container = document.createElement('div');
 
     for (let [key, probs] of Object.entries(this.probs)) {
-      let probGroup = createDiv();
-      probGroup.parent(container);
+      let probGroup = document.createElement('div');
+      container.appendChild(probGroup);
 
-      let titleNode = createElement('label', `Key code: ${key}`);
-      titleNode.parent(probGroup);
+      let titleNode = document.createElement('label');
+      titleNode.innerHTML = `Key code: ${key}`;
+      probGroup.appendChild(titleNode);
 
-      let table = generateElement(probs.toObject());
-      table.parent(probGroup);
+      let table = probs.toHTML();
+      probGroup.appendChild(table);
     }
 
     if (!showStats) {
-      container.addClass('hidden');
+      container.classList.add('hidden');
     }
 
     return container;
@@ -96,15 +86,26 @@ class SampleMap {
 		return this.probs.reduce((m, v) => m + v);
 	}
 
-  toObject() {
-    let obj = {tag: 'table', value: {}};
+  toHTML() {
+    let table = document.createElement('table');
+    let keyRow = document.createElement('tr');
+    let valRow = document.createElement('tr');
 
-    DIR_STRINGS.forEach((str, i) => {
+    DIR_STRINGS.forEach((string, i) => {
+      let key = document.createElement('th');
+      key.innerHTML = string;
+      keyRow.appendChild(key);
+
+      let val = document.createElement('td');
       let count = this.probs[i];
       let prob = (count / this.total() * 100).toFixed(2);
-      obj.value[str] = prob;
+      val.innerHTML = prob;
+      valRow.appendChild(val);
     });
 
-    return obj;
+    table.appendChild(keyRow);
+    table.appendChild(valRow);
+
+    return table;
   }
 }
