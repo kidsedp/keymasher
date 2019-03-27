@@ -21,3 +21,7 @@ th {
 .hidden {
     display: none;
 }
+
+.is-danger {
+    background-color: red;
+}

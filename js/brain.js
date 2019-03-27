@@ -13,7 +13,7 @@ const DIR_STRINGS = ['Left', 'Up', 'Right', 'Down'];
  */
 class Brain {
 	constructor() {
-		this.probs = {};
+    this.load();
 		this.lastMove = 0;
 	}
 	
@@ -73,6 +73,42 @@ class Brain {
     }
 
     return container;
+  }
+
+  /**
+   * Saves the current stats in localStorage
+   */
+  save() {
+    let state = JSON.stringify(this.probs);
+    localStorage.setItem('keymasher_stats', state);
+  }
+
+  /**
+   * Loads the last available stats from localStorage; if no stats are
+   * available, sets the stats to empty
+   */
+  load() {
+    this.probs = {};
+    let data = JSON.parse(localStorage.getItem('keymasher_stats'));
+
+    if (!data) {
+      return;
+    }
+
+    for (let [key, val] of Object.entries(data)) {
+      if (data.hasOwnProperty(key)) {
+        this.probs[key] = new SampleMap(DIRS.length);
+        this.probs[key].probs = val;
+      }
+    }
+  }
+
+  /**
+   * Resets the stats the brain knows about
+   */
+  reset() {
+    this.probs = {};
+    localStorage.removeItem('keymasher_stats');
   }
 }
 
@@ -163,5 +199,14 @@ class SampleMap {
     table.appendChild(valRow);
 
     return table;
+  }
+
+  /**
+   * Hook for JSON.stringify calls
+   *
+   * @return  The probabilities learned by the mapping
+   */
+  toJSON() {
+   return this.probs;
   }
 }

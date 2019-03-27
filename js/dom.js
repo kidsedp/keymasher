@@ -21,12 +21,19 @@ var showStats = false;
 
 /**
  * Retrieving the DOM elements of interest and initializes them if necessary.
+ *
+ * @param brain  The brain object to load preset stats from, if available
+ * @param score  The initial score
  */
-function initDOM() {
+function initDOM(brain, score) {
   statsNode = document.getElementById('key-stats');
   scoreNode = document.getElementById('score');
 
   document.getElementById('show-stats-button').addEventListener('click', toggleStats);
+  document.getElementById('reset-game-button').addEventListener('click', resetGame);
+
+  updateStats(brain);
+  updateScore(score);
 }
 
 /**
@@ -58,6 +65,7 @@ function updateStats(brain) {
  * @param newScore  The score to display
  */
 function updateScore(newScore) {
+  localStorage.setItem('keymasher_score', newScore);
   scoreNode.innerHTML = newScore;
 }
 

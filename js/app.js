@@ -45,11 +45,12 @@ var score = 0;  // The score starts at 0
  * Sets up the environment. Called by p5.js
  */
 function setup() {
-  // Initialize the canvas, then get the rest of the DOM stuff set up.
-  // @see dom.js
 	let canvas = createCanvas(600, 600);
   canvas.parent('board-container');
-  initDOM();
+
+  if (localStorage.hasOwnProperty('keymasher_score')) {
+    score = parseInt(localStorage.getItem('keymasher_score'));
+  }
 
   // Since the canvas size is available now, set the grid size based on the
   // number of desired cells.
@@ -67,6 +68,9 @@ function setup() {
   do {
     coin.randomizePosition();
   } while (player.samePositionAs(coin));
+
+  // @see dom.js
+  initDOM(brain, score);
 }
 
 /**
@@ -148,6 +152,9 @@ function makeMove(code) {
   // Update the brain's statistics in the DOM
   // @see dom.js
   updateStats(brain);
+
+  // Save the current stats
+  brain.save();
 }
 
 /**
@@ -162,4 +169,14 @@ function onCoinReached() {
   do {
     coin.randomizePosition();
   } while (player.samePositionAs(coin));
+}
+
+/**
+ * Resets all the game variables
+ */
+function resetGame() {
+  brain.reset();
+  updateStats(brain);
+  score = 0;
+  updateScore(score);
 }
