@@ -40,10 +40,6 @@ class Brain {
       probGroup.appendChild(table);
     }
 
-    if (!showStats) {
-      container.classList.add('hidden');
-    }
-
     return container;
   }
 }

@@ -3,35 +3,30 @@ var scoreNode;
 var showStats = false;
 
 function initDOM() {
-  let scoreNodeArea = createP('Score: ');
-  scoreNodeArea.parent('stats-container');
-  scoreNode = createSpan(0);
-  scoreNode.parent(scoreNodeArea);
+  statsNode = document.getElementById('key-stats');
+  scoreNode = document.getElementById('score');
+  let statsButton = document.getElementById('show-stats-button');
 
-  statsNode = createDiv();
-  statsButton = createButton('Show stats');
-  statsButton.parent('stats-container');
-  statsButton.mouseClicked(() => {
+  scoreNode.innerHTML = 0;
+
+  statsButton.addEventListener('click', () => {
     if (showStats) {
-      statsNode.addClass('hidden');
-      showStats = false;
-      statsButton.html('Show stats');
+      statsButton.innerHTML = 'Show stats';
     } else {
-      statsNode.removeClass('hidden');
-      showStats = true;
-      statsButton.html('Hide stats');
+      statsButton.innerHTML = 'Hide stats';
     }
+    showStats = !showStats;
+    statsNode.classList.toggle('hidden');
   });
-  statsNode.parent('stats-container');
 }
 
 function updateStats() {
-  emptyNode(statsNode.elt);
-  statsNode.elt.appendChild(brain.toHTML());
+  emptyNode(statsNode);
+  statsNode.appendChild(brain.toHTML());
 }
 
 function updateScore(newScore) {
-  scoreNode.html(newScore);
+  scoreNode.innerHTML = newScore;
 }
 
 function emptyNode(node) {

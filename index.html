@@ -4,13 +4,16 @@
         <title>Keymasher</title>
         <link rel="stylesheet" href="css/style.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
     </head>
 
     <body>
         <div id="game">
             <div id="board-container"></div>
-            <div id="stats-container"></div>
+            <div id="stats-container">
+                <p>Score: <span id="score"></span></p>
+                <button id="show-stats-button">Show stats</button>
+                <div id="key-stats" class="hidden"></div>
+            </div>
         </div>
 
         <div id="description">
