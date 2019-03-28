@@ -54,6 +54,10 @@ class Brain {
 		this.probs[code].punish(this.lastMove);
 	}
 
+  forget(code) {
+    delete this.probs[code];
+  }
+
   /**
    * Converts the brain's stats to an HTML element
    */

@@ -98,7 +98,12 @@ function drawBoard() {
  * Callback function for when a key is pressed. Called by p5.js
  */
 function keyPressed() {
-	makeMove(keyCode);
+  if (isValidKey(keyCode)) {
+    makeMove(keyCode);
+
+    // Prevent the browser from doing any funny business with the event
+    return false;
+  }
 }
 
 /**
@@ -169,6 +174,10 @@ function onCoinReached() {
   do {
     coin.randomizePosition();
   } while (player.samePositionAs(coin));
+}
+
+function isValidKey(code) {
+  return DIRS.includes(code) || String.fromCharCode(code).match(/^[A-Z\d]$/);
 }
 
 /**
