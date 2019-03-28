@@ -12,7 +12,15 @@
             <div id="stats-container">
                 <p>Score: <span id="score">0</span></p>
                 <button id="show-stats-button">Show stats</button>
-                <div id="key-stats" class="hidden"></div>
+                <table id="key-stats-table" class="hidden">
+                    <thead>
+                        <tr>
+                            <th>Key code</th>
+                            <th>Probabilities</th>
+                        </tr>
+                    </thead>
+                    <tbody id="key-stats"></tbody>
+                </table>
                 <button id="reset-game-button" class="is-danger">Reset</button>
             </div>
         </div>

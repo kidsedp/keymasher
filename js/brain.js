@@ -58,18 +58,24 @@ class Brain {
    * Converts the brain's stats to an HTML element
    */
   toHTML() {
-    let container = document.createElement('div');
+    let container = document.createElement('tbody');
 
     for (let [key, probs] of Object.entries(this.probs)) {
-      let probGroup = document.createElement('div');
-      container.appendChild(probGroup);
+      let row = document.createElement('tr');
 
-      let titleNode = document.createElement('label');
-      titleNode.innerHTML = `Key code: ${key}`;
-      probGroup.appendChild(titleNode);
+      let titleNode = document.createElement('th');
+      let title = String.fromCharCode(key);
+      if (!title.match(/^[A-Z\d]$/)) {
+        title = DIR_STRINGS[key - LEFT];
+      }
+      titleNode.innerHTML = title;
+      row.appendChild(titleNode);
 
-      let table = probs.toHTML();
-      probGroup.appendChild(table);
+      let valNode = document.createElement('td');
+      valNode.appendChild(probs.toHTML());
+      row.appendChild(valNode);
+
+      container.appendChild(row);
     }
 
     return container;
@@ -191,7 +197,7 @@ class SampleMap {
       let val = document.createElement('td');
       let count = this.probs[i];
       let prob = (count / this.total() * 100).toFixed(2);
-      val.innerHTML = prob;
+      val.innerHTML = `${prob}%`;
       valRow.appendChild(val);
     });
 

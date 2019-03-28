@@ -16,7 +16,7 @@ const NUM_CELLS = 10;
 /**
  * Colour constants -- using _CLR to avoid annoying UK/US spelling differences
  */
-const BACKGROUND_CLR = 200;
+const BACKGROUND_CLR = '#d9c7c0';
 const COIN_CLR = '#ffff00';
 const GRID_CLR = 0;
 const PLAYER_CLR = 0;

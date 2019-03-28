@@ -5,6 +5,11 @@
  */
 
 /**
+ * The stats table
+ */
+var statsTableNode;
+
+/**
  * The node where the brain stats are contained
  */
 var statsNode;
@@ -26,6 +31,7 @@ var showStats = false;
  * @param score  The initial score
  */
 function initDOM(brain, score) {
+  statsTableNode = document.getElementById('key-stats-table');
   statsNode = document.getElementById('key-stats');
   scoreNode = document.getElementById('score');
 
@@ -46,7 +52,7 @@ function toggleStats() {
     this.innerHTML = 'Hide stats';
   }
   showStats = !showStats;
-  statsNode.classList.toggle('hidden');
+  statsTableNode.classList.toggle('hidden');
 }
 
 /**
@@ -56,7 +62,7 @@ function toggleStats() {
  */
 function updateStats(brain) {
   emptyNode(statsNode);
-  statsNode.appendChild(brain.toHTML());
+  replaceChildren(statsNode, brain.toHTML());
 }
 
 /**
@@ -67,6 +73,21 @@ function updateStats(brain) {
 function updateScore(newScore) {
   localStorage.setItem('keymasher_score', newScore);
   scoreNode.innerHTML = newScore;
+}
+
+/**
+ * Helper function that replaces all of the children of one node with the
+ * children of another node
+ *
+ * @param origNode  The node to replace
+ * @param newNode   The node to replace with
+ */
+function replaceChildren(origNode, newNode) {
+  emptyNode(origNode);
+
+  for (let child of Array.from(newNode.children)) {
+    origNode.appendChild(child);
+  }
 }
 
 /**

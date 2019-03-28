@@ -1,21 +1,65 @@
 #game {
     display: flex;
+    justify-content: center;
 }
 
 #board-container, #stats-container {
     margin: 1em;
 }
 
-table, tr, td, th {
-    border: 1px solid black;
+#board-container canvas {
+    padding: 1em;
+    background-color: #451c0b;
+    border-radius: 1em;
+}
+
+#stats-container > button {
+    display: block;
+    margin-top: 1em;
+}
+
+#description {
+    background-color: #fffefe;
+    margin: 0 2em;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+body {
+    background: #efffef;
 }
 
 table {
-    border-collapse: collapse;
+    background: #ece3df;
+}
+
+td, th {
+    padding: .1em;
 }
 
 th {
-    background: #c0c0c0;
+    background: #db5b24;
+}
+
+td {
+    min-width: 4em;
+}
+
+button {
+    padding: .5em;
+    border-radius: .5em;
+    border: none;
+    cursor: pointer;
+    background-color: #dddddd;
+}
+
+button:hover {
+    background-color: #eeeeee;
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 1pt 1pt #008cffb0;
 }
 
 .hidden {
@@ -23,5 +67,9 @@ th {
 }
 
 .is-danger {
-    background-color: red;
+    background-color: #c80000;
+}
+
+.is-danger:hover {
+    background-color: #ff0000;
 }
