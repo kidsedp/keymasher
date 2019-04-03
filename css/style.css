@@ -11,6 +11,7 @@
     padding: 1em;
     background-color: #451c0b;
     border-radius: 1em;
+    box-shadow: 0 2px 8px 1px #333;
 }
 
 #stats-container > button {
@@ -23,6 +24,7 @@
     margin: 0 2em;
     padding: 1em;
     border-radius: 1em;
+    box-shadow: 0 2px 8px 0px #777;
 }
 
 body {
