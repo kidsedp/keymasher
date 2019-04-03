@@ -7,6 +7,7 @@
     </head>
 
     <body>
+        <img src="img/cat.svg" id="background-image" />
         <div id="game">
             <div id="board-container"></div>
             <div id="stats-container">
@@ -28,12 +29,12 @@
         <div id="description">
             <h2>How to play</h2>
             <p>
-                Press any buttons you want. (I suggest the arrow keys, but feel free to try other keys, too!) Your goal is to move the black circle onto the yellow one. At first, the game will respond randomly to your key presses, but over time, it will learn what each key means.
+                Press any buttons you want. (I suggest the arrow keys, but feel free to try other keys, too!) Your goal is to move the cat onto the mouse's square. At first, the cat will respond randomly to your key presses, but over time, it will learn what each key means.
             </p>
 
             <h2>What's going on?</h2>
             <p>
-                This game is a demonstration of <b>reinforcement learning</b>. When you press a key, the game makes a guess about what you meant. If its guess brings the black circle closer to the yellow one, it rewards itself by making the move it guessed more likely when you press that key. If its guess moves it further away or keeps it where it is, it punishes itself by making that move less likely when you press the same key. You can see the probability table for each key it knows about by pressing the <b>Show stats</b> button.
+                This game is a demonstration of <b>reinforcement learning</b>. When you press a key, the game makes a guess about what you meant. If its guess brings the cat closer to the mouse, it rewards itself by making the move it guessed more likely when you press that key. If its guess moves it further away or keeps it where it is, it punishes itself by making that move less likely when you press the same key. You can see the probability table for each key it knows about by pressing the <b>Show stats</b> button.
             </p>
 
             <br />

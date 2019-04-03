@@ -9,10 +9,10 @@ class Entity {
   /**
    * Initializes the entity
    *
-   * @param clr  The colour of the entity
+   * @param avatar  The image to display
    */
-  constructor(clr) {
-    this.clr = clr;
+  constructor(avatar) {
+    this.avatar = avatar;
     this.x = 0;
     this.y = 0;
   }
@@ -43,11 +43,9 @@ class Entity {
    * Draws the entity on the canvas
    */
   show() {
-    fill(this.clr);
-    noStroke();
     push();
     scale(width/NUM_CELLS);
-    ellipse(this.x+0.5, this.y+0.5, 1, 1);
+    image(this.avatar, this.x, this.y, 1, 1);
     pop();
   }
 

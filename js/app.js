@@ -5,7 +5,7 @@
  * overall game logic.
  *
  * @see dom.js     For DOM interaction (stats, game score)
- * @see entity.js  For token objects (i.e. the player, the coin)
+ * @see entity.js  For token objects (i.e. the cat, the mouse)
  * @see brain.js   For the reinforcement learning logic
  */
 
@@ -34,12 +34,19 @@ const DIRS = [LEFT, UP, RIGHT, DOWN];
  * Variables that need to wait to be set until p5.js is read to set up the
  * environment
  */
-var gridSize;   // The size of the space between two lines of the grid
-var brain;      // The object that determines which moves should be made
-var player;     // The representation of the player's token
-var coin;       // The representation of the goal token
+var gridSize;  // The size of the space between two lines of the grid
+var brain;     // The object that determines which moves should be made
+var cat;       // The representation of the cat's token
+var mouse;     // The representation of the goal token
 
 var score = 0;  // The score starts at 0
+
+var catImage, mouseImage;
+
+function preload() {
+  catImage = loadImage('img/cat.svg');
+  mouseImage = loadImage('img/mouse.svg');
+}
 
 /**
  * Sets up the environment. Called by p5.js
@@ -57,17 +64,17 @@ function setup() {
 	gridSize = width / NUM_CELLS;
 
   // Initialize all of the game objects.
-  player = new Entity(PLAYER_CLR);
-  coin = new Entity(COIN_CLR);
+  cat   = new Entity(catImage);
+  mouse = new Entity(mouseImage);
 	brain = new Brain();
 
-  // Set the player's position, then set the coin's, ensuring that they aren't
+  // Set the cat's position, then set the mouse's, ensuring that they aren't
   // at the same spot.
-  player.randomizePosition();
+  cat.randomizePosition();
 
   do {
-    coin.randomizePosition();
-  } while (player.samePositionAs(coin));
+    mouse.randomizePosition();
+  } while (cat.samePositionAs(mouse));
 
   // @see dom.js
   initDOM(brain, score);
@@ -79,8 +86,8 @@ function setup() {
 function draw() {
 	background(BACKGROUND_CLR);
   drawBoard();
-  player.show();
-  coin.show();
+  cat.show();
+  mouse.show();
 }
 
 /**
@@ -117,28 +124,28 @@ function makeMove(code) {
   let move = brain.getMove(code);
 
   // Save the original distance for comparison later
-  let originalDist = player.distanceFrom(coin);
+  let originalDist = cat.distanceFrom(mouse);
   
-  // Actually move the player
+  // Actually move the cat
   switch (move) {
     case UP:
-      player.move(0, -1);
+      cat.move(0, -1);
       break;
     case RIGHT:
-      player.move(1, 0);
+      cat.move(1, 0);
       break;
     case DOWN:
-      player.move(0, 1);
+      cat.move(0, 1);
       break;
     case LEFT:
-      player.move(-1, 0);
+      cat.move(-1, 0);
       break;
     default:
       break;
   }
   
   // Figure out the new distance
-  let newDist = player.distanceFrom(coin);
+  let newDist = cat.distanceFrom(mouse);
 
   // If the new distance is closer than before, the guess was correct and the
   // brain should reward itself. Otherwise, it was wrong and the brain should
@@ -149,8 +156,8 @@ function makeMove(code) {
     brain.punish(code);
   }
   
-  // Check if the coin was reached, and call the associated method if so
-  if (player.samePositionAs(coin)) {
+  // Check if the mouse was reached, and call the associated method if so
+  if (cat.samePositionAs(mouse)) {
     onCoinReached();
   }
 
@@ -163,17 +170,17 @@ function makeMove(code) {
 }
 
 /**
- * Routine for when the coin is found by the player
+ * Routine for when the mouse is found by the cat
  *
- * Increments the score, triggers a DOM update of the score, and moves the coin
+ * Increments the score, triggers a DOM update of the score, and moves the mouse
  * to a new location
  */
 function onCoinReached() {
   score++;
   updateScore(score);
   do {
-    coin.randomizePosition();
-  } while (player.samePositionAs(coin));
+    mouse.randomizePosition();
+  } while (cat.samePositionAs(mouse));
 }
 
 function isValidKey(code) {
